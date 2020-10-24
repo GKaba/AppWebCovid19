@@ -1,0 +1,45 @@
+﻿@model Tp_Comerce.Models.ProductTypes
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<div class="container ls-product-section">
+    <div id="produit" class="page-header"></div>
+    <div class="container ">
+        <h3 class="h1-responsive font-weight-bold text-center my-4 "> CREATION TYPE PRODUIT </h3>
+        <div class="line"></div>
+
+        <div id="listproduct" class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-6 col-lg-6 col-md-6">
+                        <div class="form-group row">
+                            <div class="col-4 col-lg-4">
+                                <label asp-for="ProductType" class="control-label"></label>
+                            </div>
+                            <div class="col-8 col-lg-8">
+                                <input asp-for="ProductType" class="form-control" />
+                                <span asp-validation-for="ProductType" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <input type="submit" value="Creer" class="btn btn-primary btn-block" />
+                        </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <a asp-action="Index" class="btn btn-info">Back to List</a>
+        </div>
+        </div>
+    </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

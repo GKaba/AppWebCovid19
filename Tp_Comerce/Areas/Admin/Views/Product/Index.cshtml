@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Tp_Comerce.Models.Product>
+
+@{
+    ViewData["Title"] = "Produit";
+}
+
+<div class="container ls-product-section">
+    <div id="produit" class="page-header"></div>
+    <div class="container ">
+        <h3 class="h1-responsive font-weight-bold text-center my-4 "> LES PRODUITS </h3>
+        <div class="line"></div>
+
+        <div id="listproduct" class="row">
+
+            <p>
+                <a class="btn btn-info" asp-action="Create">Creer Produit</a>
+            </p>
+            <table class="table table-striped border" id="myTable">
+                <thead class="bg-info text-dark">
+                    <tr class="table-info">
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsAvailable)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductTypes)
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/@item.Image"
+                                     class="rounded-circle"
+                                     height="40" width="40"
+                                     asp-append-version="true" />
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsAvailable)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductTypes.ProductType)
+                            </td>
+                            <td>
+                                <partial name="_ButtonPartial" model="@item.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+
+            </div>
+        </div>
+    </div>
+            @section scripts{
+                <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+                <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+        $(function () {
+            var save = '@TempData["save"]'
+            if (save != '') {
+                alertify.success(save);
+            }
+             var modif = '@TempData["modification"]'
+            if (modif != '') {
+                alertify.success(modif);
+            }
+             var supr = '@TempData["supprission"]'
+            if (supr != '') {
+                alertify.warning(supr);
+            }
+
+        })
+
+                </script>
+
+
+
+
+
+
+            }

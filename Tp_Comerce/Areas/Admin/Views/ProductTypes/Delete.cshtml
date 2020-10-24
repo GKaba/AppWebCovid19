@@ -1,0 +1,31 @@
+﻿@model Tp_Comerce.Models.ProductTypes
+
+@{
+    ViewData["Title"] = "Supprimer Type Produit";
+}
+
+<div class="container ls-product-section">
+    <div id="produit" class="page-header"></div>
+    <div class="container ">
+        <h3 class="h1-responsive font-weight-bold text-center my-4 "> SUPPRISION TYPE PRODUIT </h3>
+        <div class="line"></div>
+
+        <div id="listproduct" class="row">
+            <div class="col-6 col-lg-6 col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-4 col-lg-4">
+                        @Html.DisplayNameFor(model => model.ProductType)
+                    </dt>
+                    <dd class="col-sm-8 col-lg-8">
+                        @Html.DisplayFor(model => model.ProductType)
+                    </dd>
+                </dl>
+                </div>
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Supprimer" class="btn btn-danger" />
+                    <a class="btn btn-info" asp-action="Index">Back to List</a>
+                </form>
+            </div>
+        </div>
+    </div>

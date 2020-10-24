@@ -1,0 +1,63 @@
+﻿
+<div class="container">
+    <div id="contact" class="page-header">
+        <div class="container ">
+            <h3 class="h1-responsive font-weight-bold text-center my-4 ">NOUS JOINDRE</h3>
+            <div class="line "></div>
+        </div>
+        <p class="text-center w-responsive mx-auto mb-5 ">Aves vous des questions?S.V.P , N'hésitez pas à nous contacter directement. Notre équipe reviendra vers vous en quelques heures pour vous aider.</p>
+        <div class="row ">
+            <div class="col-md-9 mb-md-0 mb-5 ">
+                <form id="contact-form" name="contact-form" asp-area="Customer" asp-controller="Home" asp-action="Message" method="Post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" name="name" class="form-control" placeholder="Votre Nom">
+                            <label for="name" class=" p-2 "></label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="email" class="form-control" placeholder="Votre Email">
+                            <label for="email" class=" p-2 "></label>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <input type="text" name="subject" class="form-control" placeholder="Le Sujet">
+                            <label for="subject" class=" p-2 "></label>
+
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <textarea type="text" name="message" rows="5" class="form-control md-textarea" placeholder="Votre message"></textarea>
+                            <label for="message" class=" p-2"></label>
+                        </div>
+                    </div>
+                    <div class="text-center text-md-left">
+
+                        <input type="submit" id="message" class="btn btn-lg btn-danger" value="Envoyer" />
+                    </div>
+                </form>
+               
+            </div>
+            <div class="col-md-3 text-center ">
+                <ul class="list-unstyled mb-0 ">
+                    <li>
+                        <i class="fas fa-map-marker-alt fa-2x "></i>
+                        <p>Saint-Laurent , QC , CA</p>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-phone mt-4 fa-2x "></i>
+                        <p>+ 01 438-555-4444</p>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-envelope mt-4 fa-2x "></i>
+                        <p>contact@covid19.com</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

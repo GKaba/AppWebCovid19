@@ -1,0 +1,245 @@
+﻿@using Tp_Comerce.utils
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{
+    var userRole = HttpContextAccessor.HttpContext.Session.GetString("roleName");
+
+    int count = 0;
+    List<Product> products = HttpContextAccessor.HttpContext.Session.Get<List<Product>>("products");
+    if (products == null)
+    {
+        products = new List<Product>();
+    }
+    count = products.Count();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Tp_Comerce</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/lib/fontawesome-free-5.14.0-web/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+
+    <!--<link rel="stylesheet" href="~/css/site.css" />-->
+    <link rel="stylesheet" href="~/css/style.css" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">*@
+    <nav id="opc" class="navbar navbar-expand-md fixed-top shadow bg-light navbar-light">
+        <div class="container text-uppercase">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/logo.png " class="logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            @*<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">*@
+            <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link navbar-text" asp-area="" asp-controller="Home" asp-action="Index">@localizer["ACCUEIL"]<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">@localizer["NOUS JOINDRE"]</a>
+                    </li>
+                    @if (userRole == "Admin")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="Admin" asp-controller="ProductTypes" asp-action="Index">@localizer["Type Produit"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="Admin" asp-controller="Product" asp-action="Index">@localizer["Produits"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="Admin" asp-controller="Users" asp-action="Index">@localizer["Utilisateurs"]</a>
+                        </li>
+                    }
+
+                    <li class="nav-item">
+                        @await Html.PartialAsync("_CulturePartial")
+                    </li>
+                </ul>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+        @{
+            @if (count != 0)
+            {
+                <div id="cart" class="cart" data-toggle="modal" data-target="#exampleModalLong" data-totalitems="@count">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+            }
+            else
+            {
+                <div style="display:none" id="cart" class="cart" data-toggle="modal" data-target="#exampleModalLong" data-totalitems="@count">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+            }
+
+        }
+
+    </nav>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Modal cart -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">VENTE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- partial contenu Panier d'achat-->
+                <partial name="_CartPartial" />
+                
+            </div>
+        </div>
+    </div>
+    <!--End Modal Cart-->
+    <!-- About area -->
+    <section class="about white-color" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-white">
+
+                    <h2> <span>NOS </span> Produit</h2>
+                    <p>Bien que nos produits soient les meilleurs au monde, nous devons toujours laisser une distance de sécurité de 2M</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ About area end-->
+    <!--nous joindre-->
+    <partial name="_NousJoindrePartial" />
+    
+    <!--nous joindre-->
+    <!-- counter section -->
+    <div id="counter" class=" container-fluid text-center shadow">
+        <div class=" about-counter ">
+            <div class="row ">
+                <div class="col-md-3 col-sm-6  about-counter-single ">
+                    <div class="counter ">
+                        <span class="fa fa-truck icon "></span>
+                        <h3>LIVRAISON GRATUITE</h3>
+                        <p>Expédition dans le monde pour les commandes de plus de 99 $</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6  about-counter-single ">
+                    <div class="counter ">
+                        <span class="fa fa-gift icon "></span>
+                        <h3>MEILLEURES OFFRES</h3>
+                        <p> Nous vous garantissons les meilleures offres</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6  about-counter-single ">
+                    <div class="counter ">
+                        <span class="fa fa-credit-card icon "></span>
+                        <h4>REMBOURSEMENT</h4>
+                        <p>Ne pas recevoir un article.. appliqué pour récompenser </p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 ">
+                    <div class="counter ">
+                        <span class="fa fa-headphones icon "></span>
+                        <h3>SUPPORT 24/7</h3>
+                        <p> Nous vous attendons dans 24 heures </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ counter section end-->
+    <button onclick="topFunction()" id="myBtn" class="fa fa-arrow-up"></button>
+
+    <script>
+        var mybutton = document.getElementById("myBtn");
+        var height = $('home-screen').height();
+
+
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <!-- Footer-->
+    <footer>
+        <div class="container-fluid mt-5" id="footer">
+            <div class="page-footer text-center">
+                <div class="row">
+                    <div class="col-md-12 py-5 text-danger ">
+                        <div class="mb-5 flex-center">
+
+                            <!-- Facebook -->
+                            <a class="icfooter">
+                                <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x" style="color: red;"> </i>
+                            </a>
+                            <!-- Twitter -->
+                            <a class="icfooter">
+                                <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x" style="color:red;"> </i>
+                            </a>
+                            <!-- Google +-->
+                            <a class="icfooter">
+                                <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x" style="color: red;"> </i>
+                            </a>
+                            <!--Linkedin -->
+                            <a class="icfooter">
+                                <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x" style="color:red;"> </i>
+                            </a>
+                            <!--Instagram-->
+                            <a class="icfooter">
+                                <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x" style="color:red;"> </i>
+                            </a>
+                            <!--Pinterest-->
+                            <a class="icfooter">
+                                <i class="fab fa-pinterest fa-lg white-text fa-2x" style="color:red;"> </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" text-center font-weight-bold py-4">
+                2020 @@BDEB INTERFACE PROJET :BY GEORGE KABA && Joe-Elie Asio
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

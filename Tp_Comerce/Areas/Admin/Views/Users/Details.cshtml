@@ -1,0 +1,40 @@
+﻿@model Tp_Comerce.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container ls-product-section">
+    <div id="produit" class="page-header"></div>
+    <div class="container ">
+        <h3 class="h1-responsive font-weight-bold text-center my-4 "> DETAILS UTILISATEUR </h3>
+        <div class="line"></div>
+
+        <div id="listproduct" class="row">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FirstName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Modifier</a>
+            <a class="btn btn-info" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Tp_Comerce.Models.ProductTypes>
+
+@{
+    ViewData["Title"] = "Type de Produit";
+}
+<div class="container ls-product-section">
+    <div id="produit" class="page-header"></div>
+    <div class="container ">
+        <h3 class="h1-responsive font-weight-bold text-center my-4 "> TYPES PRODUITS </h3>
+        <div class="line"></div>
+
+        <div id="listproduct" class="row">
+            <p>
+                <a asp-action="Create" class="btn btn-info">Creer un Type Produit</a>
+            </p>
+            <br />
+            <table class="table table-striped border" >
+                <thead class="bg-info text-dark">
+                    <tr class="table-info">
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductType)
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductType)
+                            </td>
+                            <td>
+                                <partial name="_ButtonPartial" model="@item.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+            @section scripts{
+                <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#myTable').DataTable();
+                    });
+            $(function () {
+            var save = '@TempData["save"]'
+            if (save != '') {
+                alertify.success(save);
+            }
+             var modif = '@TempData["modification"]'
+            if (modif != '') {
+                alertify.success(modif);
+            }
+             var supr = '@TempData["supprission"]'
+            if (supr != '') {
+                alertify.success(supr);
+
+            }
+
+        })
+
+                </script>
+
+            }

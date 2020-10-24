@@ -1,0 +1,69 @@
+﻿@model Tp_Comerce.Models.Product
+
+@{
+    ViewData["Title"] = "Modification";
+}
+
+<div class="container ls-product-section">
+    <div id="produit" class="page-header"></div>
+    <div class="container ">
+        <h3 class="h1-responsive font-weight-bold text-center my-4 "> MODIFIER PRODUIT </h3>
+        <div class="line"></div>
+
+        <div id="listproduct" class="row">
+                <div class="col-md-6">
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Price" class="control-label"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Image" class="control-label"></label>
+                            <input type="file" asp-for="Image" class="form-control" />
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="IsAvailable" /> @Html.DisplayNameFor(model => model.IsAvailable)
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ProductTypeId" class="control-label"></label>
+                            <select asp-for="ProductTypeId" class="form-control" asp-items="ViewBag.ProductTypeId"></select>
+                            <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Modifier" class="btn btn-primary" />
+                        </div>
+
+                    </form>
+
+                </div>
+                <div claas="col-1"></div>
+                <div class="col-md-6">
+                    <img src="~/@Model.Image" width="200" hight="200" style="border-radius:5px;border:1px solid #ff0000" />
+
+                </div>
+            </div>
+
+            <div>
+                <a asp-action="Index" class="btn btn-info">Back to List</a>
+            </div>
+        </div>
+    </div>
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }

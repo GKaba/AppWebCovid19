@@ -1,0 +1,46 @@
+﻿@using Tp_Comerce.Models;
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model List<Product>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- products area -->
+
+<div class="container ls-product-section">
+    <div id="produit" class="page-header"></div>
+    <div class="container ">
+        <h3 class="h1-responsive font-weight-bold text-center my-4 ">@localizer["NOS PRODUITS"] </h3>
+        <div class="line"></div>
+
+        <div id="listproduct" class="row">
+
+            @foreach (var item in Model)
+            {
+                @if (item.IsAvailable)
+                {
+                    <div class="col-md-3 col-6 col-sm-4 pb-3">
+                        <div class="product-grid card">
+                            <div class="product-image">
+                                <img class="pic-1" src="~/@item.Image">
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title bolded">
+                                    <p>@Html.DisplayFor(modelItem => item.Name)</p>
+                                </h3>
+                                <div class="price">
+                                    <p class="price">$ @item.Price.ToString("F2")</p>
+                                </div>
+                                <a class="add-to-cart btn btn-danger text-white" asp-area="Customer" asp-controller="Home" asp-action="AjuterPanier" asp-route-id="@item.Id">@localizer["Ajouter"]</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+
+        </div>
+
+    </div>
+</div>
+<!-- end products area  -->
